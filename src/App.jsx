@@ -36,31 +36,20 @@ const inactive = {
 };
 
 const App = () => {
-  const dados = mario;
+  const dados = luana;
   
-  const total = dados.compras.map((item) => {
-    return parseInt(item.preco.replace("R$ ", ""));
-  });
-  let fullTotal = 0;
+  const total = dados.compras
+    .map( (item) => Number(item.preco.replace("R$ ", "")))
+    .reduce((a,b) => a + b);
 
-  total.forEach((el) => {
-    fullTotal += el;
-  });
 
   const fullData = (
     <>
       <p>Nome: {dados.cliente}</p>
       <p>Idade: {dados.idade}</p>
-      <p>
-        Situação: {" "}
-        {dados.ativa ? (
-          <span style={active}>Ativa</span>
-        ) : (
-          <span style={inactive}>Inativa</span>
-        )}
-      </p>
-      <p>Total gasto: R$ {fullTotal}</p>
-      {fullTotal >= 10000 ? <p>Você está gastando muito.</p> : ""}
+      <p> Situação: <span style={{color: dados.ativa ? "green" : "red"}}> {dados.ativa ? 'Ativa' : 'Inativa'}</span></p>
+      <p>Total gasto: R$ {total}</p>
+     {total >= 10000 &&  <p> Você está gastando muito. </p>}
     </>
   );
 
