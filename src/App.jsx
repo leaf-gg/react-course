@@ -3,19 +3,18 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Form from "./form/Form";
 
-const Test = () => {
-  const active = true;
-  if (active) {
-    return <p>test</p>;
-  }
-};
+const Title = ({color, text, children}) => {
+  return <h1 style={{color: color}}>{text}, {children}</h1>
+} 
 
 const App = () => {
   return (
     <React.Fragment>
-      <Test />
       <Header />
-      App <br />
+      <Title color="#faa200"text="Hello">
+          This is a children
+        </Title> 
+      <br />
       <Form />
       <Footer />
     </React.Fragment>

@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Input = () => {
+const Input = ({id, label, ...props}) => {
+    console.log('props', props)
   return (
-    <input type="text" placeholder='Write your name'/>
+    <div style={{margin: '1rem 0'}}>
+        <label htmlFor={id}>{label}</label>
+        <input id={id} type="text" {...props} />
+    </div>
   )
 }
 
