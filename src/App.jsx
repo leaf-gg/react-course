@@ -1,22 +1,24 @@
 import React from "react";
+import Home from "./Home";
+import Links from "./Links";
+import Products from "./Products";
 
 
 const App = () => {
-  function handleClick(event){
-    console.log('event', event.target)
+  const {pathname} = window.location;
+  console.log('pathname', pathname)
+  let Component;
+  if (pathname === '/products') {
+    Component = Products;
+  } else {
+    Component = Home;
   }
-  function handleScroll(event){
-    console.log(event)
-  }
-
-  window.addEventListener('scroll', handleScroll)
-
   return (
-    <div style={{height:'200vh'}}>
-      <button onClick={(event) => {alert(event.target.innerText)}}>Clique aqui</button>
-    </div>  
-  )
-
+    <section>
+      <Links />
+      <Component />
+    </section>
+  );
 };
 
 export default App;
