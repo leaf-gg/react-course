@@ -1,25 +1,22 @@
-import React from "react";
-import ButtonModal from "./ButtonModal";
-import Modal from "./Modal";
+import React, { useState } from "react";
 
 const App = () => {
-  const [modal, setModal] = React.useState(() => {
-    const active = window.localStorage.getItem("isActive");
-    return active;
-  });
-  const [items, setItems] = React.useState("some text");
+  const [count, setCount] = useState(1);
+  const [items, setItems] = useState(["item 1"]);
 
   function handleClick() {
-    setItems("another");
+    setCount((count) => {
+      setItems((items) => [...items, "item" + (count + 1)]);
+      return count + 1;
+    });
   }
-  
+
   return (
     <div>
-      <p>{items}</p>
-      <button onClick={handleClick}>Click</button>
-      <div>{modal ? "Modal opened" : "Modal closed"}</div>
-      <Modal modal={modal} setModal={setModal}></Modal>
-      <ButtonModal setModal={setModal} />
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+      <button onClick={handleClick}>{count}</button>
     </div>
   );
 };
