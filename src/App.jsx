@@ -1,19 +1,25 @@
 import React from "react";
+import ButtonModal from "./ButtonModal";
+import Modal from "./Modal";
 
 const App = () => {
-  const [activeHook, setActiveHook] = React.useState(false);
-  const [data, setData] = React.useState({name: 'Luiz', age: 27})
-  function handleClick() {
-    setActiveHook(!activeHook);
-    setData({...data, haveCollege: 'Have college' })
-  }
+  const [modal, setModal] = React.useState(() => {
+    const active = window.localStorage.getItem("isActive");
+    return active;
+  });
+  const [items, setItems] = React.useState("some text");
 
+  function handleClick() {
+    setItems("another");
+  }
+  
   return (
     <div>
-      <p>Name: {data.name}</p>
-      <p>Age: {data.age}</p>
-      <p>College: {data.haveCollege}</p>
-      <button onClick={handleClick}>{activeHook ? "Active" : "Inactive"}</button>
+      <p>{items}</p>
+      <button onClick={handleClick}>Click</button>
+      <div>{modal ? "Modal opened" : "Modal closed"}</div>
+      <Modal modal={modal} setModal={setModal}></Modal>
+      <ButtonModal setModal={setModal} />
     </div>
   );
 };
