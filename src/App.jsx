@@ -1,23 +1,31 @@
 import React, { useState } from "react";
+import ProductExercise from "./ProductExercise";
 
 const App = () => {
-  const [count, setCount] = useState(1);
-  const [items, setItems] = useState(["item 1"]);
+  const [data, setData] = useState(null);
+  const [load, setLoad] = useState(null);
 
-  function handleClick() {
-    setCount((count) => {
-      setItems((items) => [...items, "item" + (count + 1)]);
-      return count + 1;
-    });
+  async function handleClick(event) {
+    setLoad(true);
+    const resp = await fetch(
+      `https://ranekapi.origamid.dev/json/api/produto/${event.target.innerText}`
+    );
+    const json = await resp.json();
+
+    setData(json);
+    setLoad(false);
   }
 
   return (
-    <div>
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-      <button onClick={handleClick}>{count}</button>
-    </div>
+    <>
+      <button onClick={handleClick}>Notebook</button>
+      <button style={{ margin: ".5rem" }} onClick={handleClick}>
+        Smartphone
+      </button>
+      <button onClick={handleClick}>Tablet</button>
+      {load && <p>Loading...</p>}
+      {!load && data && <ProductExercise data={data} />}
+    </>
   );
 };
 
